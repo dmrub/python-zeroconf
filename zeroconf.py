@@ -396,7 +396,10 @@ class DNSText(DNSRecord):
 
     def write(self, out):
         """Used in constructing an outgoing packet"""
-        out.write_string(self.text)
+        if isinstance(self.text, bytes):
+            out.write_string(self.text)
+        else:
+            out.write_string(b'')
 
     def __eq__(self, other):
         """Tests equality on text"""
@@ -639,7 +642,7 @@ class DNSOutgoing(object):
 
     def write_short(self, value):
         """Writes an unsigned short to the packet"""
-        self.pack(b'!H', value)
+        self.pack(b'!H', int(value))
 
     def write_int(self, value):
         """Writes an unsigned integer to the packet"""

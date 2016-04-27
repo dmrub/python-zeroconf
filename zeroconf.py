@@ -1444,6 +1444,7 @@ class Zeroconf(object):
         information for that service.  The name of the service may be
         changed if needed to make it unique on the network."""
         self.check_service(info)
+        assert info.address is not None
         self.services[info.name.lower()] = info
         if info.type in self.servicetypes:
             self.servicetypes[info.type] += 1

@@ -416,6 +416,8 @@ class DNSService(DNSRecord):
 
     def __init__(self, name, type, class_, ttl, priority, weight, port, server):
         DNSRecord.__init__(self, name, type, class_, ttl)
+        assert priority is not None
+        assert port is not None
         self.priority = priority
         self.weight = weight
         self.port = port
@@ -1068,6 +1070,8 @@ class ServiceInfo(object):
                     bytes for the text field)
         server: fully qualified name for service host (defaults to name)"""
 
+        assert priority is not None
+        assert port is not None
         if not name.endswith(type):
             raise BadTypeInNameException
         self.type = type
@@ -1167,8 +1171,10 @@ class ServiceInfo(object):
                 if record.name == self.name:
                     self.server = record.server
                     self.port = record.port
+                    assert self.port is not None
                     self.weight = record.weight
                     self.priority = record.priority
+                    assert self.priority is not None
                     # self.address = None
                     self.update_record(zc, now,
                                        zc.cache.get_by_details(self.server, _TYPE_A, _CLASS_IN))

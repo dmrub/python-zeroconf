@@ -1056,7 +1056,7 @@ class ServiceInfo(object):
 
     """Service information"""
 
-    def __init__(self, type, name, address=None, port=None, weight=0,
+    def __init__(self, type, name, address=None, port=0, weight=0,
                  priority=0, properties=None, server=None):
         """Create a service description.
 
